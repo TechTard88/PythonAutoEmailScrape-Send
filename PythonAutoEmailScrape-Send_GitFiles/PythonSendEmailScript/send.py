@@ -13,6 +13,7 @@ def send_email(subject, msg):
 
         while True:
             TO_ADDRESS = random.choice(emails)
+            TO_ADDRESS = TO_ADDRESS.strip('\n')
             #Where my send email logic goes
             try:
                 server = smtplib.SMTP('smtp.gmail.com:587')
@@ -28,11 +29,11 @@ def send_email(subject, msg):
                 server.quit()
                 print("Success: Email sent! -> ", x, ".) ", TO_ADDRESS)
                 s = open("sentEmails.txt", "a")
-                s.write(TO_ADDRESS)
+                s.write(TO_ADDRESS, "\n")
             except:
                 print("Email failed to send. -> ", x, ".) ", TO_ADDRESS)
                 b = open("failedEmails.txt", "a")
-                b.write(TO_ADDRESS)
+                b.write(TO_ADDRESS, "\n")
 
 
 
