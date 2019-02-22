@@ -1,6 +1,5 @@
 import smtplib
 import config
-import time
 import random
 
 def send_email(subject, msg):
@@ -22,74 +21,7 @@ def send_email(subject, msg):
                 try:
                     server.login(config.MY_ADDRESS, config.PASSWORD) 
                 except:#Attempt 1 wait 20 mins
-                    server.login(config.MY_SECOND_ADDRESS, config.SECOND_PASSWORD)
-
-                    message = "Waiting attempt # 1."
-                    server.sendmail(config.MY_SECOND_ADDRESS, "8324506550@txt.att.net", message) #frm, to, msg
-                    server.quit()
-
-                    print("Waiting attempt # ", waitCount)
-                    waitCount = waitCount + 1
-                    mins = 0
-                    while mins != 20:
-                        # Sleep for a minute
-                        time.sleep(60)
-                        # Increment the minute total
-                        mins += 1
-                    x=x-1
-                    
-                    try:
-                        server.login(config.MY_ADDRESS, config.PASSWORD)
-                    except:#Attempt 2 wait 20 mins
-                        server.login(config.MY_SECOND_ADDRESS, config.SECOND_PASSWORD)
-
-                        message = "Waiting attempt # 2."
-                        server.sendmail(config.MY_SECOND_ADDRESS, "8324506550@txt.att.net", message) #frm, to, msg
-                        server.quit()
-                        
-                        print("Waiting attempt # ", waitCount)
-                        waitCount = waitCount + 1
-                        mins = 0
-                        while mins != 20:
-                            # Sleep for a minute
-                            time.sleep(60)
-                            # Increment the minute total
-                            mins += 1
-
-                        try:
-                            server.login(config.MY_ADDRESS, config.PASSWORD)
-                        except:#Attempt 3 wait 20 mins
-                            server.login(config.MY_SECOND_ADDRESS, config.SECOND_PASSWORD)
-
-                            message = "Waiting attempt # 3."
-                            server.sendmail(config.MY_SECOND_ADDRESS, "8324506550@txt.att.net", message) #frm, to, msg
-                            server.quit()
-
-                            print("Waiting attempt # ", waitCount)
-                            waitCount = waitCount + 1
-                            mins = 0
-                            while mins != 20:
-                                # Sleep for a minute
-                                time.sleep(60)
-                                # Increment the minute total
-                                mins += 1
-
-                            try:
-                                server.login(config.MY_ADDRESS, config.PASSWORD)
-                            except:#Final Attempt 
-                                server.login(config.MY_SECOND_ADDRESS, config.SECOND_PASSWORD)
-
-                                message = "Waiting till tomorrow..."
-                                server.sendmail(config.MY_SECOND_ADDRESS, "8324506550@txt.att.net", message) #frm, to, msg
-                                server.quit()
-
-                                print("Waiting till tomorrow...")
-                                mins = 0
-                                while mins != 1440:
-                                    # Sleep for a minute
-                                    time.sleep(60)                             
-                                    # Increment the minute total
-                                    mins += 1   
+                   Print ("Failed to login. Check Config file.")
 
                 message = 'Subject: {}\n\n{}'.format(subject, msg)
                 server.sendmail(config.MY_ADDRESS, TO_ADDRESS, message) #frm, to, msg
@@ -99,10 +31,12 @@ def send_email(subject, msg):
                 s.write(TO_ADDRESS)
             except:
                 print("Email failed to send. -> ", x, ".) ", TO_ADDRESS)
+                b = open("failedEmails.txt", "a")
+                b.write(TO_ADDRESS)
 
 
 
-subject = "Gaming Live Stream!"
-msg = "Hi There! My name is Shane and I have just started AnotherTechChannel on Youtube. We keep tech simple. We teach coding, web development and even game streaming; among other things like building and repairing computers. Please come check us out and if you like what you see please consider subscribing and clicking the bell icon so you can be notified when we go live! \n\nThank you for your time and support and remember, sharing is caring. \n\nHere's The Link: https://www.youtube.com/channel/UCeSk0tqmNVPfIg1arx2GSOQ/videos?view_as=subscriber \n\n Follow me on Twitter www.twitter.com/@TechTard88"
+subject = "Write your subject here!"
+msg = "Write your message here!!! \n\n Follow me on Twitter www.twitter.com/@TechTard88"
 
 send_email(subject, msg)
