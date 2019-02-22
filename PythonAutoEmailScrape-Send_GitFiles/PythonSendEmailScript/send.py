@@ -29,11 +29,13 @@ def send_email(subject, msg):
                 server.quit()
                 print("Success: Email sent! -> ", x, ".) ", TO_ADDRESS)
                 s = open("sentEmails.txt", "a")
-                s.write(TO_ADDRESS, "\n")
+                logSent = TO_ADDRESS + "\n"
+                s.write(logSent)
             except:
                 print("Email failed to send. -> ", x, ".) ", TO_ADDRESS)
                 b = open("failedEmails.txt", "a")
-                b.write(TO_ADDRESS, "\n")
+                logBad = TO_ADDRESS + "\n"
+                b.write(logBad)
 
 
 
